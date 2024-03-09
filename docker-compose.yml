@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: neighborhood_web
+    ports:
+      - '3000:3000'
+    command: npm run serve
