@@ -1,0 +1,14 @@
+@keyframes pulse {
+    0%,
+    100% {
+        transform: scale(1);
+    } 50% {
+              transform: scale(1.1);
+          }
+}
+
+:hover.pulse {
+    animation-name: pulse;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
