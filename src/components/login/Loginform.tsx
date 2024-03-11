@@ -1,3 +1,5 @@
+const apiUrl = process.env.REACT_APP_BACKEND_URL;
+
 import React, { useState } from "react";
 
 function LoginForm() {
@@ -6,7 +8,7 @@ function LoginForm() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch("/neighborhood/v1/users/login/", {
+      const response = await fetch(`${apiUrl}/neighborhood/v1/users/login/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
