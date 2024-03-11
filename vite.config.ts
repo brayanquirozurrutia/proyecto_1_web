@@ -7,11 +7,5 @@ export default defineConfig({
   server: {
     strictPort: false,
     port: 3000,
-    proxy: {
-      '/neighborhood/v1': {
-        target: 'https://proyecto-1-5d0g.onrender.com',
-        changeOrigin: true
-      }
-    }
   }
 })
