@@ -1,12 +1,12 @@
-
-
 import React, { useState } from "react";
 
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+
+  const handleSubmit = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     try {
       const response = await fetch("/neighborhood/v1/users/login/", {
         method: "POST",
@@ -18,22 +18,26 @@ function LoginForm() {
           password,
         }),
       });
+
       if (!response.ok) {
         const errorData = await response.json();
         console.error("Error response:", errorData);
         throw new Error("Authentication failed");
       }
+
       const data = await response.json();
+      if (!data) {
+        console.error("Empty response");
+        return;
+      }
+
       console.log("Authentication success:", data);
       localStorage.setItem("token", data.access);
     } catch (error) {
       console.error("Authentication error:", error);
-      if (error instanceof Response) {
-        const data = await error.json();
-        console.error("Error response:", data);
-      }
     }
   };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
