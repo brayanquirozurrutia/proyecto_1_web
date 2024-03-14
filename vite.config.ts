@@ -12,7 +12,9 @@ export default ({ mode }: { mode: string }): UserConfigExport => {
       port: 3000,
     },
     define: {
-      'process.env': process.env
-    }
+      'process.env.VITE_REACT_APP_BACKEND_URL': JSON.stringify(process.env.VITE_REACT_APP_BACKEND_URL),
+      'process.env.VITE_USER_LOGIN_URL': JSON.stringify(process.env.VITE_USER_LOGIN_URL),
+      'process.env.VITE_USER_LOGIN_TOKEN_URL': JSON.stringify(process.env.VITE_USER_LOGIN_TOKEN_URL),
+    },
   });
 };

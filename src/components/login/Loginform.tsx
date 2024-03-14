@@ -21,8 +21,8 @@ interface ErrorResponse {
 }
 
 const BackendUrl = process.env.VITE_REACT_APP_BACKEND_URL;
-const VITE_USER_LOGIN_URL = process.env.VITE_USER_LOGIN_URL;
-const VITE_USER_LOGIN_TOKEN_URL = process.env.VITE_USER_LOGIN_TOKEN_URL;
+const LoginUrl = process.env.VITE_USER_LOGIN_URL;
+const LoginTokenUrl = process.env.VITE_USER_LOGIN_TOKEN_URL;
 
 
 function LoginForm() {
@@ -44,7 +44,7 @@ function LoginForm() {
         email,
         password
       };
-      const response = await fetch(`${BackendUrl}${VITE_USER_LOGIN_URL}`, {
+      const response = await fetch(`${BackendUrl}${LoginUrl}`, {
         method: "POST",
         headers: {
           "Accept": "application/json",
@@ -61,7 +61,7 @@ function LoginForm() {
           throw new Error("Network response was not ok");
         }
       } else {
-        const tokenResponse = await fetch(`${BackendUrl}${VITE_USER_LOGIN_TOKEN_URL}`, {
+        const tokenResponse = await fetch(`${BackendUrl}${LoginTokenUrl}`, {
           method: "POST",
           headers: {
             "Accept": "application/json",
