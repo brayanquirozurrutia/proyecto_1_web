@@ -2,7 +2,7 @@
 .vscode
 .dockerignore
 .gitignore
-.env
+.env.local
 config
 build
 node_modules
