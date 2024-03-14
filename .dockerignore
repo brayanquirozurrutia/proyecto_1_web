@@ -3,6 +3,7 @@
 .dockerignore
 .gitignore
 .env
+.env.production
 config
 build
 node_modules
