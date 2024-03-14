@@ -20,9 +20,9 @@ interface ErrorResponse {
   status: boolean;
 }
 
-const BackendUrl = process.env.VITE_REACT_APP_BACKEND_URL;
-const LoginUrl = process.env.VITE_USER_LOGIN_URL;
-const LoginTokenUrl = process.env.VITE_USER_LOGIN_TOKEN_URL;
+const BackendUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL as string;
+const LoginUrl =  import.meta.env.VITE_USER_LOGIN_URL as string;
+const LoginTokenUrl = import.meta.env.VITE_USER_LOGIN_TOKEN_URL as string;
 
 
 function LoginForm() {
