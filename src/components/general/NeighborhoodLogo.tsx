@@ -1,4 +1,4 @@
-import "../styles/neighborhoodlogo.css";
+import "../../styles/neighborhoodlogo.css";
 
 interface Props {
   widthClass?: string;

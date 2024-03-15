@@ -113,7 +113,7 @@ function LoginForm() {
                   id="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="border border-gray-400 rounded py-1 px-2 w-full focus:outline-none focus:ring focus:border-blue-500 focus:shadow-2xl
+                  className="border border-gray-400 rounded py-2 px-2 w-full focus:outline-none focus:ring focus:border-blue-500 focus:shadow-2xl
                   invalid:border-pink-500 invalid:text-pink-600 focus:inalid:border-pink-500 focus:invalid:ring-pink-300"
                   placeholder="m@example.com"
               />
@@ -132,17 +132,16 @@ function LoginForm() {
                   id="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="border border-gray-400 rounded py-1 px-2 w-full focus:outline-none focus:ring focus:border-blue-500 focus:shadow-2xl
+                  className="border border-gray-400 rounded py-2 px-2 w-full focus:outline-none focus:ring focus:border-blue-500 focus:shadow-2xl
                   invalid:border-pink-500 invalid:text-pink-600 focus:inalid:border-pink-500 focus:invalid:ring-pink-300"
               />
             </div>
           </div>
           {error && <AlertBootstrap message={error} variant="danger" />}
-          <div className="mb-4">
+          <div className="mb-4 text-white font-bold">
             <button
                 type="submit"
-                className="text-white bg-gray-950 rounded w-full py-2 hover:bg-sky-700 hover:shadow-2xl
-                transition duration-300"
+                className="tasition transition ease-in-out delay-100 bg-gray-950 rounded w-full py-2 hover:-translate-y-1 hover:scale-110 hover:bg-sky-800 duration-300 hover:shadow-2xl"
             >
               Sign In
             </button>

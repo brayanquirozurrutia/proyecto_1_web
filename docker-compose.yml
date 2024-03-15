@@ -9,3 +9,5 @@ services:
     ports:
       - '3000:3000'
     command: npm run serve
+    env_file:
+      - .env.production

@@ -11,6 +11,8 @@ COPY --from=BUILD_IMAGE /app/dist ./dist
 COPY --from=BUILD_IMAGE /app/node_modules ./node_modules
 COPY --from=BUILD_IMAGE /app/package.json ./package.json
 COPY --from=BUILD_IMAGE /app/package.json ./package.json
+COPY .env ./
+COPY .env.production ./
 RUN npm install
 EXPOSE 3000
 CMD ["npm", "run", "serve"]
