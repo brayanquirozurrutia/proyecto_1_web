@@ -97,11 +97,6 @@ function LoginForm() {
       // Aquí podrías realizar alguna acción adicional si lo necesitas
     }
   }, []);
-  const handleSignUpClick = () => {
-    // Redirige al usuario a la ruta de registro
-    navigateTo('/signup');
-  };
-
   return (
       <div>
         <form onSubmit={handleSubmit}>
@@ -158,7 +153,7 @@ function LoginForm() {
           </a>
         </div>
         <div className="font-bold hover:underline hover:underline-offset-2 text-center">
-          <a href="" onClick={handleSignUpClick}>Sign up for an account?</a>
+          <a href="/signup">Sign up for an account?</a>
         </div>
       </div>
   );

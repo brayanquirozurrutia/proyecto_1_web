@@ -47,7 +47,7 @@ function SignUp() {
     gender: 'O',
   });
   const [error, setError] = useState<string | null>(null);
-  const [sucess, setSucess] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
   const [passwordStrength, setPasswordStrength] = useState<number>(0);
   const [passwordRequirements, setPasswordRequirements] = useState<{ requirement: string; fulfilled: boolean }[]>([]);
 
@@ -177,7 +177,7 @@ function SignUp() {
         }
       } else {
         setError(null);
-        setSucess(`Account created successfully.
+        setSuccess(`Account created successfully.
         Check your email to activate your account.
         You will be redirected to the home page in 10 seconds.`);
         setTimeout(() => {
@@ -408,8 +408,8 @@ function SignUp() {
             }
           </div>
           <div className={customStyles.signUpCol}>
-            {sucess &&
-                <AlertBootstrap message={sucess} variant="primary"/>
+            {success &&
+                <AlertBootstrap message={success} variant="primary"/>
             }
           </div>
           {/* FIN MENSAJES DE ERROR O EXITO */}
