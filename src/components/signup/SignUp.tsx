@@ -50,6 +50,7 @@ function SignUp() {
   const [success, setSuccess] = useState<string | null>(null);
   const [passwordStrength, setPasswordStrength] = useState<number>(0);
   const [passwordRequirements, setPasswordRequirements] = useState<{ requirement: string; fulfilled: boolean }[]>([]);
+  const [redirectTimer, setRedirectTimer] = useState(10);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
@@ -179,10 +180,8 @@ function SignUp() {
         setError(null);
         setSuccess(`Account created successfully.
         Check your email to activate your account.
-        You will be redirected to the home page in 10 seconds.`);
-        setTimeout(() => {
-          navigateTo('/');
-        }, 10000);
+        You will be redirected to the home page in`);
+        startRedirectTimer();
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -193,6 +192,16 @@ function SignUp() {
     }
   };
 
+  const startRedirectTimer = () => {
+    const timer = setInterval(() => {
+      setRedirectTimer(prevTime => Math.max(prevTime - 1, 0));
+    }, 1000);
+
+    setTimeout(() => {
+      clearInterval(timer);
+      navigateTo('/');
+    }, redirectTimer * 1000);
+  };
   const handleShowModal = () => setShowModal(true);
 
   const handleCloseModal = () => {
@@ -409,7 +418,7 @@ function SignUp() {
           </div>
           <div className={customStyles.signUpCol}>
             {success &&
-                <AlertBootstrap message={success} variant="primary"/>
+                <AlertBootstrap message={`${success} ${redirectTimer} seconds.`} variant="primary"/>
             }
           </div>
           {/* FIN MENSAJES DE ERROR O EXITO */}
