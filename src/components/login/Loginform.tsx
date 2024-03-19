@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AlertBootstrap from "../Bootstrap/AlertBootstrap";
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 // Definición de la estructura de datos para enviar al endpoint
 interface LoginRequest {
@@ -153,7 +154,7 @@ function LoginForm() {
           </a>
         </div>
         <div className="font-bold hover:underline hover:underline-offset-2 text-center">
-          <a href="/signup">Sign up for an account?</a>
+          <Link to="/signup">Sign up for an account?</Link>
         </div>
       </div>
   );
