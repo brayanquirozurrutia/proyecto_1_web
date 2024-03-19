@@ -97,6 +97,11 @@ function LoginForm() {
       // Aquí podrías realizar alguna acción adicional si lo necesitas
     }
   }, []);
+  const handleSignUpClick = () => {
+    // Redirige al usuario a la ruta de registro
+    navigateTo('/signup');
+  };
+
   return (
       <div>
         <form onSubmit={handleSubmit}>
@@ -141,7 +146,7 @@ function LoginForm() {
           <div className="mb-4 text-white font-bold">
             <button
                 type="submit"
-                className="tasition transition ease-in-out delay-100 bg-gray-950 rounded w-full py-2 hover:-translate-y-1 hover:scale-110 hover:bg-sky-800 duration-300 hover:shadow-2xl"
+                className="trasition transition ease-in-out delay-100 bg-gray-950 rounded w-full py-2 hover:-translate-y-1 hover:scale-110 hover:bg-sky-800 duration-300 hover:shadow-2xl"
             >
               Sign In
             </button>
@@ -153,7 +158,7 @@ function LoginForm() {
           </a>
         </div>
         <div className="font-bold hover:underline hover:underline-offset-2 text-center">
-          <a href="">Sign up for an account?</a>
+          <a href="" onClick={handleSignUpClick}>Sign up for an account?</a>
         </div>
       </div>
   );
