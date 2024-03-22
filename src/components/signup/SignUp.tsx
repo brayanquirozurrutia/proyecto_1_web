@@ -4,39 +4,15 @@ import {constText, capitalizeFirstLetter} from "../../constants/constants.tsx";
 import {useNavigate} from 'react-router-dom';
 import {Modal, Button} from "react-bootstrap";
 import AlertBootstrap from "../Bootstrap/AlertBootstrap";
+import { useMutation } from 'react-query';
+import {postSignUp} from "./signUpMutation.ts";
 
-const BackendUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL as string;
-const createAccountUrl =  import.meta.env.VITE_USER_CREATE_ACCOUNT_URL as string;
+interface SignUpProps {}
 
-interface SignUpRequestBody {
-  first_name: string;
-  last_name: string;
-  rut: string;
-  email: string;
-  password: string;
-  gender: string;
-}
-
-interface SignUpRequest {
-  name: string;
-  surname: string;
-  email: string;
-  re_email: string;
-  password: string;
-  re_password: string;
-  rut: string;
-  gender: string;
-}
-
-interface ErrorResponse {
-  detail: string;
-  status: boolean;
-}
-
-function SignUp() {
+const SignUp: React.FC<SignUpProps> = () => {
   const navigateTo = useNavigate();
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState<SignUpRequest>({
+  const [formData, setFormData] = useState({
     name: '',
     surname: '',
     email: '',
@@ -51,6 +27,7 @@ function SignUp() {
   const [passwordStrength, setPasswordStrength] = useState<number>(0);
   const [passwordRequirements, setPasswordRequirements] = useState<{ requirement: string; fulfilled: boolean }[]>([]);
   const [redirectTimer, setRedirectTimer] = useState(10);
+  const signUpMutation = useMutation(postSignUp);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
@@ -151,7 +128,7 @@ function SignUp() {
         return;
     }
     try {
-      const requestData: SignUpRequestBody = {
+      const requestData = {
         first_name: formData.name.trim(),
         last_name: formData.surname.trim(),
         rut: formData.rut.trim(),
@@ -159,39 +136,18 @@ function SignUp() {
         password: formData.password,
         gender: formData.gender,
       };
-      const response = await fetch(`${BackendUrl}${createAccountUrl}`, {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestData),
-      });
-      const responseData = await response.json();
-      if (!response.ok) {
-        console.log(requestData)
-        const errorResponse: ErrorResponse = responseData;
-        if (response.status) {
-          throw new Error(errorResponse.detail || "Sign up error");
-        } else {
-          throw new Error("Network response was not ok");
-        }
-      } else {
+      const response = await signUpMutation.mutateAsync(requestData);
+      if (response.status === 201) {
         setError(null);
         setSuccess(`Account created successfully.
         Check your email to activate your account.
         You will be redirected to the home page in`);
         startRedirectTimer();
-      }
+        }
     } catch (error) {
-      if (error instanceof Error) {
-        setError(error.message || 'Failed to sign up');
-      } else {
-        setError('Failed to sign up');
-      }
+      setError(error as string);
     }
   };
-
   const startRedirectTimer = () => {
     const timer = setInterval(() => {
       setRedirectTimer(prevTime => Math.max(prevTime - 1, 0));
