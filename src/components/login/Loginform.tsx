@@ -1,103 +1,41 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import AlertBootstrap from "../Bootstrap/AlertBootstrap";
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import { useMutation } from 'react-query';
+import { postData, postToken } from './authMutation.ts';
 
-// Definición de la estructura de datos para enviar al endpoint
-interface LoginRequest {
-  email: string;
-  password: string;
-}
+interface LoginFormProps {}
 
-// Definición de la estructura de datos para recibir del endpoint
-interface TokenResponse {
-  access: string;
-  refresh: string;
-}
-
-// Definición de la estructura de datos para la respuesta de error
-interface ErrorResponse {
-  detail: string;
-  status: boolean;
-}
-
-const BackendUrl =  import.meta.env.VITE_REACT_APP_BACKEND_URL as string;
-const LoginUrl =  import.meta.env.VITE_USER_LOGIN_URL as string;
-const LoginTokenUrl = import.meta.env.VITE_USER_LOGIN_TOKEN_URL as string;
-
-
-function LoginForm() {
+const LoginForm: React.FC<LoginFormProps> = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigateTo = useNavigate();
 
+  const loginMutation = useMutation(postData);
+  const tokenMutation = useMutation(postToken);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Verificamos que los campos no estén vacíos
     if (!email || !password) {
       setError("Email and password are required.");
       return;
     }
     try {
-      // Construimos el objeto de solicitud con la estructura definida
-      const requestData: LoginRequest = {
-        email,
-        password
-      };
-      const response = await fetch(`${BackendUrl}${LoginUrl}`, {
-        method: "POST",
-        headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(requestData),
-      });
-      const responseData = await response.json();
-      if (!response.ok) {
-        const errorResponse: ErrorResponse = responseData;
-        if (response.status) {
-          throw new Error(errorResponse.detail || "Authentication error");
-        } else {
-          throw new Error("Network response was not ok");
-        }
-      } else {
-        const tokenResponse = await fetch(`${BackendUrl}${LoginTokenUrl}`, {
-          method: "POST",
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestData),
-        });
-        const tokenData: TokenResponse = await tokenResponse.json();
-        if (!tokenResponse.ok) {
-          throw new Error("Network response was not ok");
-        } else {
-          const { access, refresh } = tokenData;
-          setTokens(access, refresh);
-          navigateTo('/dashboard')
-        }
+      const loginResult = await loginMutation.mutateAsync({ email, password });
+      if (loginResult.data.status) {
+        const tokenResult = await tokenMutation.mutateAsync({ email, password });
+        setTokens(tokenResult.data.access, tokenResult.data.refresh);
+        navigateTo('/dashboard');
       }
     } catch (error) {
-      setError((error as Error).message);
+      setError(error as string);
     }
   };
-
-  // Función para establecer los tokens y guardarlos en el almacenamiento local
   const setTokens = (access: string, refresh: string) => {
     localStorage.setItem("accessToken", access);
     localStorage.setItem("refreshToken", refresh);
   };
-
-  // Función para cargar los tokens desde el almacenamiento local al cargar la página
-  useEffect(() => {
-    const storedAccessToken = localStorage.getItem("accessToken");
-    const storedRefreshToken = localStorage.getItem("refreshToken");
-    if (storedAccessToken && storedRefreshToken) {
-      // Aquí podrías realizar alguna acción adicional si lo necesitas
-    }
-  }, []);
   return (
       <div>
         <form onSubmit={handleSubmit}>
@@ -115,7 +53,7 @@ function LoginForm() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="border border-gray-400 rounded py-2 px-2 w-full focus:outline-none focus:ring focus:border-blue-500 focus:shadow-2xl
-                  invalid:border-pink-500 invalid:text-pink-600 focus:inalid:border-pink-500 focus:invalid:ring-pink-300"
+                invalid:border-pink-500 invalid:text-pink-600 focus:inalid:border-pink-500 focus:invalid:ring-pink-300"
                   placeholder="m@example.com"
               />
             </div>
@@ -134,7 +72,7 @@ function LoginForm() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="border border-gray-400 rounded py-2 px-2 w-full focus:outline-none focus:ring focus:border-blue-500 focus:shadow-2xl
-                  invalid:border-pink-500 invalid:text-pink-600 focus:inalid:border-pink-500 focus:invalid:ring-pink-300"
+                invalid:border-pink-500 invalid:text-pink-600 focus:inalid:border-pink-500 focus:invalid:ring-pink-300"
               />
             </div>
           </div>
