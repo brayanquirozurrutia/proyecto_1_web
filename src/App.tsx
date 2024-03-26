@@ -2,6 +2,8 @@ import Login from "./components/login/Login"
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from "./components/dashboard/Dashboard.tsx";
 import SignUp from "./components/signup/SignUp.tsx";
+import ActivateAccount from "./components/activate_account/ActivateAccount.tsx";
+import ResetPassword from "./components/reset_password/ResetPassword.tsx";
 
 function App() {
     return (
@@ -10,6 +12,8 @@ function App() {
                 <Route path="/" element={<Login />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/signup" element={<SignUp />} />
+                <Route path="/activate_account" element={<ActivateAccount />} />
+                <Route path="/reset_password" element={<ResetPassword />} />
             </Routes>
         </Router>
     );
