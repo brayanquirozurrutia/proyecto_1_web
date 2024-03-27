@@ -5,6 +5,7 @@ import SignUp from "./components/signup/SignUp.tsx";
 import ActivateAccount from "./components/activate_account/ActivateAccount.tsx";
 import ResetPassword from "./components/reset_password/ResetPassword.tsx";
 import ActivateAccountNewToken from "./components/activate_account_new_token/ActivateAccountNewToken.tsx";
+import ResetPasswordNewToken from "./components/reset_password_new_token/ResetPasswordNewToken.tsx";
 
 function App() {
     return (
@@ -16,6 +17,7 @@ function App() {
                 <Route path="/activate-account" element={<ActivateAccount />} />
                 <Route path="/reset-password" element={<ResetPassword />} />
                 <Route path="/activate-account-new-token" element={<ActivateAccountNewToken />} />
+                <Route path="/reset-password-new-token" element={<ResetPasswordNewToken />} />
             </Routes>
         </Router>
     );

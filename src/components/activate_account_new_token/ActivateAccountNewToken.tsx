@@ -1,6 +1,6 @@
 import NewToken from "../general/NewToken.tsx";
 
-const NewTokenUrl = import.meta.env.VITE_NEW_ACTIVATE_ACCOUNT_TOKEN_URL
+const NewTokenUrl = import.meta.env.VITE_NEW_ACTIVATE_ACCOUNT_TOKEN_URL as string;
 
 const ActivateAccountNewToken = () => {
     return (

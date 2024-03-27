@@ -32,7 +32,7 @@ const ActivateAccountNewToken: React.FC<ActivateAccountNewTokenProps> = ({
 
     return (
         <div className={`${customStyles.customBackground} pt-4`}>
-            <AuthMessageProps subTitle={"New activation token"} />
+            <AuthMessageProps subTitle={"New token"} />
             <div className={"flex flex-col px-20 py-4"}>
                 <form
                     onSubmit={handleSubmit}
