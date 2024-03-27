@@ -3,6 +3,8 @@ import { customStyles } from "../../constants/styles.ts";
 import AuthMessageProps from "../general/AuthMessageProps.tsx";
 import { postNewAToken } from "../../utils/mutates/NewTokenMutate.tsx";
 import AlertBootstrap from "../Bootstrap/AlertBootstrap.tsx";
+import NeighborhoodLogo from "./NeighborhoodLogo.tsx";
+import FooterText from "./FooterText.tsx";
 
 interface ActivateAccountNewTokenProps {
     TokenUrl: string;
@@ -31,44 +33,53 @@ const ActivateAccountNewToken: React.FC<ActivateAccountNewTokenProps> = ({
     };
 
     return (
-        <div className={`${customStyles.customBackground} pt-4`}>
-            <AuthMessageProps subTitle={"New token"} />
-            <div className={"flex flex-col px-20 py-4"}>
-                <form
-                    onSubmit={handleSubmit}
-                    id={"activateAccountNewToken"}
-                    name={"activateAccountNewToken"}
-                >
-                    <div className={""}>
-                        <label
-                            htmlFor={"email"}
-                            className={customStyles.labelText}
-                        >Email</label>
-                        <input
-                            autoComplete={"email"}
-                            type={"email"}
-                            id={"email"}
-                            name={"email"}
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className={`${customStyles.customInput} mb-4`}
-                            required={true}
-                        />
-                    </div>
-                    <button type="submit" className={customStyles.customButton}>
-                        Get new token
-                    </button>
-                    <div className={"pt-2"}>
-                        {error && <AlertBootstrap message={error} variant="danger"/>}
-                    </div>
-                    <div className={"pt-2"}>
-                        {success &&
-                            <AlertBootstrap message={success} variant="primary"/>
-                        }
-                    </div>
-                </form>
+        <div>
+            <div className={`${customStyles.customBackground} pt-4`}>
+                <AuthMessageProps subTitle={"New token"}/>
+                <div className={"flex flex-col px-20 py-4"}>
+                    <form
+                        onSubmit={handleSubmit}
+                        id={"activateAccountNewToken"}
+                        name={"activateAccountNewToken"}
+                    >
+                        <div className={""}>
+                            <label
+                                htmlFor={"email"}
+                                className={customStyles.labelText}
+                            >Email</label>
+                            <input
+                                autoComplete={"email"}
+                                type={"email"}
+                                id={"email"}
+                                name={"email"}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className={`${customStyles.customInput} mb-4`}
+                                required={true}
+                            />
+                        </div>
+                        <button type="submit" className={customStyles.customButton}>
+                            Get new token
+                        </button>
+                        <div className={"pt-2"}>
+                            {error && <AlertBootstrap message={error} variant="danger"/>}
+                        </div>
+                        <div className={"pt-2"}>
+                            {success &&
+                                <AlertBootstrap message={success} variant="primary"/>
+                            }
+                        </div>
+                    </form>
+                </div>
+                <div className={""}>
+                    <NeighborhoodLogo></NeighborhoodLogo>
+                </div>
+            </div>
+            <div className="sm:pb-4 md:pb-4 lg:pb-3 xl:pb-2 2xl:pb-1">
+                <FooterText/>
             </div>
         </div>
+
     );
 }
 

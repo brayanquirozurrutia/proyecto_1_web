@@ -5,6 +5,7 @@ import { patchResetPassword } from "./ResetPasswordMutate.tsx";
 import { Link, useNavigate } from "react-router-dom";
 import AlertBootstrap from "../Bootstrap/AlertBootstrap.tsx";
 import NeighborhoodLogo from "../general/NeighborhoodLogo.tsx";
+import FooterText from "../general/FooterText.tsx";
 
 interface ActivateAccountProps { }
 
@@ -122,108 +123,115 @@ const ResetPassword: React.FC<ActivateAccountProps> = () => {
         return password.trim() !== '' && newPassword.trim() !== '';
     };
     return (
-        <div className={`${customStyles.customBackground} pt-4`}>
-            <AuthMessageProps subTitle={"Reset password"} />
-            <form onSubmit={handleSubmit} id={"resetPasswordForm"}>
-                <div className={"flex flex-col px-20 py-4"}>
-                    <div className={"flex flex-col items-center"}>
-                        <p className={"pb-2"}>Enter your account activation code in the box</p>
-                        <div className="flex mb-4 justify-center">
-                            {activationCode.map((value, index) => (
-                                <input
-                                    required={true}
-                                    key={index}
-                                    ref={(el) => (inputRefs.current[index] = el)}
-                                    className={`${customStyles.customInput} text-center mr-2 shadow-xl`}
-                                    type={"text"}
-                                    maxLength={1}
-                                    value={value}
-                                    onChange={(e) => handleInputChange(index, e.target.value)}
-                                />
-                            ))}
-                        </div>
-                        <div className={"flex-row"}>
-                            <div className={""}>
-                                <label className={customStyles.labelText}
-                                       htmlFor="password"
-                                >
-                                    Enter your password
-                                </label>
-                                <input
-                                    id={"password"}
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => {
-                                        setPassword(e.target.value);
-                                        handleInputChangePassword(e);
-                                    }}
-                                    className={`${customStyles.customInput} mb-4`}
-                                    required={true}
-                                />
+        <div>
+            <div className={`${customStyles.customBackground} pt-4`}>
+                <AuthMessageProps subTitle={"Reset password"}/>
+                <form onSubmit={handleSubmit} id={"resetPasswordForm"}>
+                    <div className={"flex flex-col px-20 py-4"}>
+                        <div className={"flex flex-col items-center"}>
+                            <p className={"pb-2"}>Enter your account activation code in the box</p>
+                            <div className="flex mb-4 justify-center">
+                                {activationCode.map((value, index) => (
+                                    <input
+                                        required={true}
+                                        key={index}
+                                        ref={(el) => (inputRefs.current[index] = el)}
+                                        className={`${customStyles.customInput} text-center mr-2 shadow-xl`}
+                                        type={"text"}
+                                        maxLength={1}
+                                        value={value}
+                                        onChange={(e) => handleInputChange(index, e.target.value)}
+                                    />
+                                ))}
                             </div>
-                            <div className={""}>
-                                <label className={customStyles.labelText}
-                                htmlFor={"new_password"}>
-                                    Confirm password
-                                </label>
-                                <input
-                                    id={"new_password"}
-                                    type="password"
-                                    value={newPassword}
-                                    onChange={(e) => {
-                                        setNewPassword(e.target.value);
-                                        rePasswordHandleInputChange(e);
-                                    }}
-                                    className={`${customStyles.customInput} mb-4`}
-                                    required={true}
-                                />
-                            </div>
-                            {isPasswordNotEmpty() && (
-                                <div className={customStyles.signUpRow}>
-                                    <div className={customStyles.passwordRequirements}>
-                                        <div className="progress">
-                                            <div className="progress-bar progress-bar-striped"
-                                                 role="progressbar"
-                                                 aria-label="Basic example"
-                                                 aria-valuenow={passwordStrength}
-                                                 aria-valuemin={0}
-                                                 aria-valuemax={100}
-                                                 style={{width: `${passwordStrength * 25}%`}}
-                                            />
-                                        </div>
-                                        <ul>
-                                            {passwordRequirements.map((requirement, index) => (
-                                                <li key={index} style={{color: requirement.fulfilled ? 'rgb(0,0,0)' : 'rgb(255,0,0)'}}>
-                                                    {requirement.requirement}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+                            <div className={"flex-row"}>
+                                <div className={""}>
+                                    <label className={customStyles.labelText}
+                                           htmlFor="password"
+                                    >
+                                        Enter your password
+                                    </label>
+                                    <input
+                                        id={"password"}
+                                        type="password"
+                                        value={password}
+                                        onChange={(e) => {
+                                            setPassword(e.target.value);
+                                            handleInputChangePassword(e);
+                                        }}
+                                        className={`${customStyles.customInput} mb-4`}
+                                        required={true}
+                                    />
                                 </div>
-                            )}
+                                <div className={""}>
+                                    <label className={customStyles.labelText}
+                                           htmlFor={"new_password"}>
+                                        Confirm password
+                                    </label>
+                                    <input
+                                        id={"new_password"}
+                                        type="password"
+                                        value={newPassword}
+                                        onChange={(e) => {
+                                            setNewPassword(e.target.value);
+                                            rePasswordHandleInputChange(e);
+                                        }}
+                                        className={`${customStyles.customInput} mb-4`}
+                                        required={true}
+                                    />
+                                </div>
+                                {isPasswordNotEmpty() && (
+                                    <div className={customStyles.signUpRow}>
+                                        <div className={customStyles.passwordRequirements}>
+                                            <div className="progress">
+                                                <div className="progress-bar progress-bar-striped"
+                                                     role="progressbar"
+                                                     aria-label="Basic example"
+                                                     aria-valuenow={passwordStrength}
+                                                     aria-valuemin={0}
+                                                     aria-valuemax={100}
+                                                     style={{width: `${passwordStrength * 25}%`}}
+                                                />
+                                            </div>
+                                            <ul>
+                                                {passwordRequirements.map((requirement, index) => (
+                                                    <li key={index}
+                                                        style={{color: requirement.fulfilled ? 'rgb(0,0,0)' : 'rgb(255,0,0)'}}>
+                                                        {requirement.requirement}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                            <button type="submit" className={customStyles.customButton}>
+                                Activate Account
+                            </button>
+                            <div className={"pt-2"}>
+                                {error && <AlertBootstrap message={error} variant="danger"/>}
+                            </div>
+                            <div className={"pt-2"}>
+                                {success &&
+                                    <AlertBootstrap message={success} variant="primary"/>
+                                }
+                            </div>
                         </div>
-                        <button type="submit" className={customStyles.customButton}>
-                            Activate Account
-                        </button>
-                        <div className={"pt-2"}>
-                            {error && <AlertBootstrap message={error} variant="danger"/>}
+                        <div className="text-center pb-4">
+                            <Link to="" className={"font-bold hover:underline hover:underline-offset-2"}>Has your code
+                                expired?</Link>
                         </div>
-                        <div className={"pt-2"}>
-                            {success &&
-                                <AlertBootstrap message={success} variant="primary"/>
-                            }
+                        <div className={"basis-1/2"}>
+                            <NeighborhoodLogo></NeighborhoodLogo>
                         </div>
                     </div>
-                    <div className="text-center pb-4">
-                        <Link to="" className={"font-bold hover:underline hover:underline-offset-2"}>Has your code
-                            expired?</Link>
-                    </div>
-                    <div className={"basis-1/2"}>
-                        <NeighborhoodLogo></NeighborhoodLogo>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
+            <div className="sm:pb-4 md:pb-4 lg:pb-3 xl:pb-2 2xl:pb-1">
+                <FooterText/>
+            </div>
         </div>
+
     );
 };
 
