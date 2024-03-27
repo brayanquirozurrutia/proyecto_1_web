@@ -19,7 +19,11 @@ export async function getActivateAccount(activateAccountData: ActivateAccountDat
         });
     } catch (error) {
         if (axios.isAxiosError(error)) {
-            return Promise.reject(error.response?.data.detail || 'An error occurred while processing your request. Please try again later.');
+            return Promise.reject(
+                error.response?.data.detail ||
+                error.response?.data.error ||
+                'An error occurred while processing your request. Please try again later.'
+            );
         } else {
             return Promise.reject((error as Error).message);
         }

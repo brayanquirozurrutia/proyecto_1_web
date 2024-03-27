@@ -36,7 +36,11 @@ const ResetPassword: React.FC<ActivateAccountProps> = () => {
                 navigate('/');
             }, 5000);
         } catch (error) {
-            setError(error as string || 'An error occurred while processing your request. Please try again later.');
+            if (error === 'Not found.') {
+                setError('Invalid code. Please try again or request a new code.');
+            } else {
+                setError(error as string || 'An error occurred while processing your request. Please try again later.');
+            }
         }
     };
     const handleInputChange = (index: number, value: string) => {
@@ -130,7 +134,7 @@ const ResetPassword: React.FC<ActivateAccountProps> = () => {
                                     required={true}
                                     key={index}
                                     ref={(el) => (inputRefs.current[index] = el)}
-                                    className={`${customStyles.customInput} w-10 h-10 text-center mr-2`}
+                                    className={`${customStyles.customInput} text-center mr-2 shadow-xl`}
                                     type={"text"}
                                     maxLength={1}
                                     value={value}
